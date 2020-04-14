@@ -8,6 +8,7 @@
 			su.username,
 			su.cellphone,
 			su.password,
+			su.role_id,
 			sr.name,
 			su.gender,
 			su.id_card,

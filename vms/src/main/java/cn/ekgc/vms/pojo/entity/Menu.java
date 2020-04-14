@@ -18,12 +18,12 @@ public class Menu implements Serializable {
 	private String text;
 	private String url;
 	private String icon;
-	private String status;
+	private Integer status;
 	private User createUser;
 	private Date createTime;
 	private User updateUser;
 	private Date updateTime;
-	private List<User> childList;              // 下级菜单
+	private List<Menu> childList;              // 下级菜单
 	private List<Role> roleList;               // 拥有该菜单的角色列表
 
 	public Long getId() {
@@ -66,11 +66,11 @@ public class Menu implements Serializable {
 		this.icon = icon;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -106,11 +106,11 @@ public class Menu implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public List<User> getChildList() {
+	public List<Menu> getChildList() {
 		return childList;
 	}
 
-	public void setChildList(List<User> childList) {
+	public void setChildList(List<Menu> childList) {
 		this.childList = childList;
 	}
 

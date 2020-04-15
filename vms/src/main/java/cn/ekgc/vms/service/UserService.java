@@ -1,6 +1,7 @@
 package cn.ekgc.vms.service;
 
 import cn.ekgc.vms.pojo.entity.User;
+import cn.ekgc.vms.pojo.vo.VmsPage;
 
 /**
  * <b>用户实现类接口</b>
@@ -17,4 +18,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	User getUserByCellphone(String cellphone) throws Exception;
+
+	/**
+	 * <b>分页查询用户列表</b>
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	VmsPage<User> getUserListByPage(VmsPage<User> page) throws Exception;
 }

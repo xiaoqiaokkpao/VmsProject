@@ -11,6 +11,20 @@
 		<script type="text/javascript" src="/js/jquery.overlayScrollbars.min.js"></script>
 		<script type="text/javascript" src="/js/adminlte.min.js"></script>
 		<script type="text/javascript" src="/js/pages/dashboard2.js"></script>
+		<script type="text/javascript">
+			// 阻止原始的超链接的连接动作，变为一个 JavaScript 事件
+			function openFrame(url, childText, parentText) {
+				// 设置面板显示信息
+				$("#title").text(childText);
+				$("#parent").text(parentText);
+				$("#child").text(childText);
+				// 通过 JavaScript 获得此时组件的高度
+				var height = $("#content").parent().height() - $("#contentHeader").height();
+				// 找到对应的 iframe 位置，进行插入 HTML 代码
+				var iframe = "<iframe src='" + url + "' style='width: 100%; height: " + height + "px; border: 0px;' scrolling='true'></iframe>";
+				$("#content").html(iframe);
+			}
+		</script>
 	</head>
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 		<div class="wrapper">
@@ -32,7 +46,7 @@
 			</nav>
 			<aside class="main-sidebar sidebar-dark-primary elevation-4">
 				<a href="index3.html" class="brand-link">
-					<span class="brand-text font-weight-light">AdminLTE 3</span>
+					<span class="brand-text font-weight-light">万睿智能停车管理系统</span>
 				</a>
 				<div class="sidebar">
 					<div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
@@ -48,7 +62,7 @@
 								</a>
 								<ul class="nav nav-treeview">
 									<li th:each="child:${menu.childList}" class="nav-item">
-										<a th:href="${child.url}" class="nav-link">
+										<a th:href="|javascript:openFrame('${child.url}', '${child.text}', '${menu.text}')|" class="nav-link">
 											<i th:class="${child.icon}"></i>
 											<p th:text="${child.text}"></p>
 										</a>
@@ -60,26 +74,26 @@
 				</div>
 			</aside>
 			<div class="content-wrapper">
-				<div class="content-header">
+				<div id="contentHeader" class="content-header">
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1 class="m-0 text-dark">Dashboard v2</h1>
+								<h1 id="title" class="m-0 text-dark"></h1>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-right">
-									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active">Dashboard v2</li>
+									<li id="parent" class="breadcrumb-item"><a href="#"></a></li>
+									<li id="child" class="breadcrumb-item active"></li>
 								</ol>
 							</div>
 						</div>
 					</div>
 				</div>
-				<section class="content"></section>
+				<section id="content" class="content"></section>
 			</div>
 			<aside class="control-sidebar control-sidebar-dark"></aside>
 			<footer class="main-footer">
-				<strong>Copyright &copy; 2020-2025 <a href="http://www.vms.com">VMS.com</a>.</strong>
+				<strong>Copyright &copy; 2019-2020 <a href="http://www.vms.com">vms.com</a>.</strong>
 				All rights reserved.
 				<div class="float-right d-none d-sm-inline-block">
 					<b>Version</b> 1.0.0

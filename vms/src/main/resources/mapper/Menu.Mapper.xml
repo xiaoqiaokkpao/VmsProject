@@ -24,6 +24,7 @@
 				<if test="status != null">sm.status=#{status} and </if>
 			</trim>
 		</where>
+		order by sm.create_time asc
 	</select>
 
 	<resultMap id="menuMap" type="Menu">

@@ -2,7 +2,10 @@ package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.UserDao;
 import cn.ekgc.vms.pojo.entity.User;
+import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +38,22 @@ public class UserServiceImpl implements UserService {
 			return userList.get(0);
 		}
 		return new User();
+	}
+
+	/**
+	 * <b>分页查询用户列表</b>
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	public VmsPage<User> getUserListByPage(VmsPage<User> page) throws Exception{
+		// 使用 PageHelper 进行分页查询
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		List<User> userList = userDao.findListByQuery(null);
+		// 将 userList 进行类型转换
+		PageInfo<User> pageInfo = new PageInfo<User>(userList);
+		// 提取 PageInfo 中的信息，填入到 VmsPage中
+		page.copyFromPageInfo(pageInfo);
+		return page;
 	}
 }

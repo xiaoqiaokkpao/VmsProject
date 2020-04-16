@@ -71,7 +71,6 @@
 							var tableSetings = $("#mytable").dataTable().fnSettings();
 							var begin = tableSetings._iDisplayStart;
 							var size = tableSetings._iDisplayLength;
-							alert(begin * size + begin + 1);
 							return begin * size + begin + 1;
 						}
 					}, {
@@ -117,7 +116,10 @@
 						targets: 7,
 						data: function (row, type, val, meta) {
 							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return row.status;
+							if (row.status == 1){
+								return "启用";
+							}
+							return "禁用";
 						}
 					}
 					],

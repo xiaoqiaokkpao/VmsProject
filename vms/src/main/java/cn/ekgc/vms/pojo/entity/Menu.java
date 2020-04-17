@@ -4,6 +4,7 @@ package cn.ekgc.vms.pojo.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <b>菜单信息实体</b>
@@ -120,6 +121,26 @@ public class Menu implements Serializable {
 
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object == null ){
+			return false;
+		}
+		if (this == object){
+			return true;
+		}
+		if (object instanceof Menu){
+			Menu menu = (Menu) object;
+			return this.getId().equals(menu.getId());
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }
 

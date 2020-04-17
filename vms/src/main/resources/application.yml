@@ -24,8 +24,11 @@ spring:
     encoding: UTF-8
     prefix: classpath:/view/
     suffix: .html
+  ### 热部署自启动
+  #devtools:
+    #restart:
+      #enabled: true
 ### 配置 MyBatis 的相关信息
 mybatis:
   mapper-locations: classpath:/mapper/*.Mapper.xml
   type-aliases-package: cn.ekgc.vms.pojo
-

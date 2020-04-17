@@ -21,4 +21,6 @@ public interface MenuDao {
 	 * @throws Exception
 	 */
 	List<Menu> findMenuListByParentAndRole(Map<String, Object> query)throws Exception;
+
+	List<Menu> findListByQuery(Map<String, Object> map) throws Exception;
 }

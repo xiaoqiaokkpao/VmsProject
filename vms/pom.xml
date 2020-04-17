@@ -85,6 +85,12 @@
 			<version>${shiro-spring.version}</version>
 		</dependency>
 		<!-- 配置 Shiro 作为安全认证框架[end] -->
+		<!-- 为了让 Spring Boot 项目能够进行热部署，需要增加插件 devtools [BEGIN] -->
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>-->
+		<!-- 为了让 Spring Boot 项目能够进行热部署，需要增加插件 devtools [END] -->
 
 		<dependency>
 			<groupId>junit</groupId>

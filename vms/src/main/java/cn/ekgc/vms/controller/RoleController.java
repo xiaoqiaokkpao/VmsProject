@@ -6,6 +6,7 @@ import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,20 @@ public class RoleController extends BaseController {
 		// 业务层进行分页查询
 		page = roleService.getRoleVmsPage(page);
 		return page;
+	}
+
+	/**
+	 * <b>转发到授权界面</b>
+	 * @param id
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/auth")
+	public String forwardAuthPage(Long id, ModelMap map) throws Exception{
+		// 将角色主键绑定到 ModelMap 中
+		map.put("roleId", id);
+		return "role/role_auth";
 	}
 
 }

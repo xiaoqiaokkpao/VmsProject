@@ -55,7 +55,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/fonts/**", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
 		// 配置退出规则
-		filterChainDefinitionMap.put("/user/logout/*", "logout");
+		filterChainDefinitionMap.put("/user/logout", "logout");
 		// 配置需要进行登录的规则
 		filterChainDefinitionMap.put("/**", "authc");
 

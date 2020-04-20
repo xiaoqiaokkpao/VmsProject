@@ -59,6 +59,14 @@
 		</where>
 	</update>
 
+	<delete id="deleteForAuth" parameterType="java.lang.Long">
+		delete from sys_role_menu where role_id=#{roleId}
+	</delete>
+
+	<insert id="saveAuth" parameterType="java.util.Map">
+		insert into sys_role_menu(role_id, menu_id) values(#{roleId}, #{menuId})
+	</insert>
+
 	<resultMap id="roleMap" type="Role">
 		<id property="id" javaType="java.lang.Long" column="id"></id>
 		<result property="name" javaType="java.lang.String" column="name"></result>

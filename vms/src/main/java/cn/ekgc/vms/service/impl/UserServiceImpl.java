@@ -56,4 +56,17 @@ public class UserServiceImpl implements UserService {
 		page.copyFromPageInfo(pageInfo);
 		return page;
 	}
+
+	/**
+	 * <b>保存信息</b>
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean save(User user) throws Exception{
+		if (userDao.save(user) > 0){
+			return true;
+		}
+		return false;
+	}
 }

@@ -80,7 +80,6 @@
 			for (var i = 0; i < nodes.length; i++) {
 				ids = nodes[i].id + "-" + ids;
 			}
-			alert(ids);
 			// 获得所有的节点之后，将最后的“-”截掉
 			ids = ids.substring(0, ids.length - 1);
 			// 将此时角色主键和菜单主键异步提交给后台，进行授权操作
@@ -99,6 +98,9 @@
 						alert("授权失败")
 					}
 					// 关闭模态框
+					parent.closeModal();
+					// 刷新列表
+					parent.openFrame("/role/index", "角色管理", "系统管理");
 				}
 			});
 		}

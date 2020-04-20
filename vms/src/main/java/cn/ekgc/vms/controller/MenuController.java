@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +34,7 @@ public class MenuController extends BaseController {
 	@ResponseBody
 	public List<Node> getNodeListForAuth(Long roleId) throws Exception{
 		List <Node> nodeList = menuService.getNodeListForAuth(roleId);
+		// List list = new ArrayList();
 		return nodeList;
 	}
 }

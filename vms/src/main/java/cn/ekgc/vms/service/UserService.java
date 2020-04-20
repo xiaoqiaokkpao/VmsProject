@@ -26,4 +26,6 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	VmsPage<User> getUserListByPage(VmsPage<User> page) throws Exception;
+
+	boolean save(User user) throws Exception;
 }

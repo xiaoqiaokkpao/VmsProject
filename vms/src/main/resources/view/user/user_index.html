@@ -83,46 +83,56 @@
 						targets: 2,
 						data: function (row, type, val, meta) {
 							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return row.cellphone;
+							if (row.gender == '0') {
+								return "<i class='fa fa-female'></i> 女";
+							} else {
+								return "<i class='fa fa-male'></i> 男";
+							}
 						}
 					}, {
 						targets: 3,
 						data: function (row, type, val, meta) {
-							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							if (row.gender == 0){
-								return "女";
-							}
-							return "男";
+							return row.role.name;
 						}
 					}, {
 						targets: 4,
 						data: function (row, type, val, meta) {
-							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return row.role.name;
+							return row.cellphone;
 						}
 					}, {
 						targets: 5,
 						data: function (row, type, val, meta) {
-							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return row.idCard;
+							return row.email;
 						}
 					}, {
 						targets: 6,
 						data: function (row, type, val, meta) {
-							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return row.email;
+							if (row.status == 0) {
+								return "<span style='color: red;'><i class='fa fa-stop'></i> 禁用</span>";
+							} else {
+								return "<span style='color: green;'><i class='fa fa-check'></i> 启用</span>";
+							}
 						}
 					}, {
 						targets: 7,
 						data: function (row, type, val, meta) {
 							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							if (row.status == 1){
-								return "启用";
+							// 按钮一：修改
+							var updateBtn = "<a href='#' class='btn btn-warning btn-xs'><i class='fa fa-wrench'></i>&nbsp;修改</a>";
+							// 按钮二：授权
+							var detailBtn = "<a href='javascript:openAuthModal(" + row.id + ")' class='btn btn-info btn-xs'><i class='fa fa-key'></i>&nbsp;授权</a>";
+							// 按钮三；启用/禁用
+							var statusBtn = "";
+							if (row.status == 1) {
+								// 此时为启用状态，那么就是禁用按钮
+								statusBtn = "<a href='#' class='btn btn-danger btn-xs'><i class='fa fa-toggle-off'></i>&nbsp;禁用</a>";
+							} else {
+								// 此时为禁用，那么按钮就是启用
+								statusBtn = "<a href='#' class='btn btn-success btn-xs'><i class='fa fa-toggle-on'></i>&nbsp;启用</a>";
 							}
-							return "禁用";
+							return updateBtn + "&nbsp;" + detailBtn + "&nbsp;" + statusBtn;
 						}
-					}
-					],
+					}],
 					// 显示语言
 					language: {
 						"sProcessing": "处理中...",
@@ -150,9 +160,19 @@
 					}
 				});
 			})
+			function openSave() {
+				parent.openModal("新增用户信息", "/user/save", 800, 600);
+			}
 		</script>
 	</head>
 	<body>
+		<div class="row">
+			<div class="col-md-12">
+				<a href="javascript:openSave()" class="btn btn-success btn-sm">
+					<i class="fa fa-plus"></i> 新增用户
+				</a>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<table id="mytable" class="table table-hover">
@@ -160,10 +180,9 @@
 						<tr>
 							<th>序号</th>
 							<th>姓名</th>
-							<th>联系电话</th>
 							<th>性别</th>
 							<th>职能</th>
-							<th>身份证号码</th>
+							<th>联系电话</th>
 							<th>电子邮件</th>
 							<th>状态</th>
 							<th>操作</th>

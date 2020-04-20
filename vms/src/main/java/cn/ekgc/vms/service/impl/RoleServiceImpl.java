@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <b>角色业务类接口实现类</b>
@@ -38,5 +41,37 @@ public class RoleServiceImpl implements RoleService {
 		// 进行信息切换
 		page.copyFromPageInfo(pageInfo);
 		return page;
+	}
+
+	/**
+	 * <b>进行角色授权</b>
+	 * @param roleId
+	 * @param menuIds
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean auth(Long roleId, Long[] menuIds) throws Exception{
+		// 根据角色主键清空现有权限
+		if (roleDao.deleteForAuth(roleId) >= 0){
+			// 循环授权
+			Map<String, Object> map = new HashMap<String, Object>();
+			for (Long menuId : menuIds){
+				// 保存权限
+				map.put("roleId", roleId);
+				map.put("menuId", menuId);
+				roleDao.saveAuth(map);
+			}
+			return true;
+		}
+		return false;
+	}
+
+
+	public List<Role> getRoleListByQuery(Role query) throws Exception{
+		List<Role> list = roleDao.findListByQuery(query);
+		if (list != null && list.size() > 0){
+			return list;
+		}
+		return new ArrayList<Role>();
 	}
 }

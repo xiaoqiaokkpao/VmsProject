@@ -1,15 +1,22 @@
 package cn.ekgc.vms.controller;
 
 import cn.ekgc.vms.base.controller.BaseController;
+import cn.ekgc.vms.base.enums.StatusEnum;
+import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
+import cn.ekgc.vms.service.RoleService;
 import cn.ekgc.vms.service.UserService;
+import cn.ekgc.vms.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.management.Query;
 
 /**
  * <b>系统用户控制层</b>
@@ -22,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RoleService roleService;
 
 	/**
 	 * <b>转发到登录界面</b>
@@ -70,5 +79,37 @@ public class UserController extends BaseController {
 		// 使用 Service 进行分页查询
 		page = userService.getUserListByPage(page);
 		return page;
+	}
+
+	/**
+	 * <b>转发保存页面</b>
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/save")
+	public String forwardSave(ModelMap map) throws Exception{
+		// 获得所有角色列表
+		Role query = new Role();
+		query.setStatus(StatusEnum.STATUS_ENABLE.getCode());
+		map.put("roleList", roleService.getRoleListByQuery(query));
+		return "user/user_save";
+	}
+
+	@PostMapping(value = "/save")
+	@ResponseBody
+	public boolean save (User user, Long roleId) throws Exception{
+		// 检查手机号码和密码
+		if (user.getCellphone() != null && !"".equals(user.getCellphone().trim())
+		&& user.getPassword() != null && !"".equals(user.getPassword().trim())){
+			// 校验必须存在角色
+			if (roleId != null && roleId != 0){
+				user.setPassword(MD5Util.encrypt(user.getPassword()));
+				// 设定状态为启用状态
+				user.setStatus(StatusEnum.STATUS_ENABLE.getCode());
+				return userService.save(user);
+			}
+		}
+		return false;
 	}
 }

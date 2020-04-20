@@ -4,6 +4,7 @@ import cn.ekgc.vms.pojo.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <b>角色数据持久层接口</b>
@@ -37,4 +38,7 @@ public interface RoleDao {
 	 */
 	int update(Role role) throws Exception;
 
+	int deleteForAuth(Long roleId) throws Exception;
+
+	int saveAuth(Map<String, Object> map) throws Exception;
 }

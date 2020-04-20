@@ -58,4 +58,29 @@ public class RoleController extends BaseController {
 		return "role/role_auth";
 	}
 
+	/**
+	 * <b>进行授权</b>
+	 * @param roleId
+	 * @param ids
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/auth")
+	@ResponseBody
+	public boolean authRole(Long roleId, String ids) throws Exception{
+		// 判断此时的授权信息是否存在
+		if (ids != null && !"".equals(ids.trim())){
+			// 使用“-”进行字符串切割
+			String[] strs = ids.split("-");
+			// 将对应的String[] 变成Long[]
+			Long[] menuIds = new Long[strs.length];
+			for (int i = 0; i < strs.length; i++){
+				menuIds[i] = Long.parseLong(strs[i]);
+			}
+			// 进行保存
+			return roleService.auth(roleId, menuIds);
+		}
+		return false;
+	}
+
 }
